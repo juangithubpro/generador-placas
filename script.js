@@ -1,39 +1,57 @@
-// Captura de elementos del DOM
+// Elementos del Panel de Control
+const selectDiseno = document.getElementById('select-diseno');
 const inputTitulo = document.getElementById('input-titulo');
 const inputCategoria = document.getElementById('input-categoria');
-const checkLuto = document.getElementById('check-luto');
+const inputDominio = document.getElementById('input-dominio');
+const inputLogo = document.getElementById('input-logo');
 const inputFoto = document.getElementById('input-foto');
 
+// Elementos de la Placa Real
 const placaObjetivo = document.getElementById('placa-objetivo');
 const placaTitulo = document.getElementById('placa-titulo');
 const placaCategoria = document.getElementById('placa-categoria');
+const placaDominio = document.getElementById('placa-dominio');
+const placaLogo = document.getElementById('placa-logo');
 const placaFoto = document.getElementById('placa-foto');
 
-// ✍️ 1. Sincronizar texto del Título
-inputTitulo.addEventListener('input', () => {
-    placaTitulo.innerText = inputTitulo.value.toUpperCase() || "TÍTULO DE LA NOTICIA DE EJEMPLO";
+// 🔄 1. Selector Dinámico de Diseño (Alterna clases sin chocar)
+selectDiseno.addEventListener('change', () => {
+    const valorSeleccionado = selectDiseno.value;
+    if (valorSeleccionado === 'luto') {
+        placaObjetivo.className = "placa-sp-wrapper diseno-luto";
+    } else {
+        placaObjetivo.className = "placa-sp-wrapper diseno-deportivo";
+    }
 });
 
-// 🏷️ 2. Sincronizar texto de la Categoría
+// ✍️ 2. Sincronizar Título (Siempre en mayúsculas estables)
+inputTitulo.addEventListener('input', () => {
+    placaTitulo.innerText = inputTitulo.value.toUpperCase() || "TÍTULO DE LA NOTICIA";
+});
+
+// 🏷️ 3. Sincronizar Categoría o Años
 inputCategoria.addEventListener('input', () => {
     placaCategoria.innerText = inputCategoria.value.toUpperCase() || "NOTICIAS";
 });
 
-// 🖤 3. Controlar activación de Luto
-checkLuto.addEventListener('change', () => {
-    if (checkLuto.checked) {
-        placaObjetivo.classList.add('es-luto');
-    } else {
-        placaObjetivo.classList.add('es-luto'); // Mantiene estructura unificada
-        placaObjetivo.className = "placa-sp-wrapper es-luto"; 
-        // Si destildan luto vuelve al clásico
-        if(!checkLuto.checked) {
-            placaObjetivo.className = "placa-sp-wrapper";
-        }
+// 🌐 4. Sincronizar Dominio Web Editable
+inputDominio.addEventListener('input', () => {
+    placaDominio.innerText = inputDominio.value.toLowerCase() || "www.nadadigital.com.ar";
+});
+
+// 🚀 5. Lector de Logo Dinámico (Permite subir cualquier PNG al vuelo)
+inputLogo.addEventListener('change', (e) => {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            placaLogo.style.backgroundImage = `url('${event.target.result}')`;
+        };
+        reader.readAsDataURL(file);
     }
 });
 
-// 🖼️ 4. Procesar y cargar la foto seleccionada localmente
+// 🖼️ 6. Lector de la Foto de Fondo
 inputFoto.addEventListener('change', (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -45,69 +63,46 @@ inputFoto.addEventListener('change', (e) => {
     }
 });
 
-// 📥 5. Función de Descargar con Canvas
+// 📥 7. Descargar Placa (Mapeo rígido con Canvas)
 async function descargarPlaca() {
-    const originalText = document.querySelector('.btn-descarga-sp').innerHTML;
     const boton = document.querySelector('.btn-descarga-sp');
-    boton.innerHTML = "Procesando... ⏳";
-    boton.disabled = true;
+    const txtOriginal = boton.innerHTML;
+    boton.innerHTML = "Procesando... ⏳"; boton.disabled = true;
 
     try {
         const canvas = await html2canvas(placaObjetivo, {
-            useCORS: true,
-            allowTaint: false,
-            scale: 3, // Alta calidad para Instagram
-            backgroundColor: "#000000"
+            useCORS: true, allowTaint: false, scale: 3, backgroundColor: "#000000"
         });
-
         const link = document.createElement("a");
-        link.download = "Placa-NadaDigital.png";
+        link.download = `Placa-${selectDiseno.value.toUpperCase()}.png`;
         link.href = canvas.toDataURL("image/png", 1.0);
         link.click();
     } catch (err) {
-        console.error(err);
-        alert("Error al generar la imagen.");
+        console.error(err); alert("Error al generar el archivo.");
     }
-    
-    boton.innerHTML = originalText;
-    boton.disabled = false;
+    boton.innerHTML = txtOriginal; boton.disabled = false;
 }
 
-// 📤 6. Función de Compartir Nativo (Para celulares)
+// 📤 8. Compartir Nativo Celular
 async function compartirPlaca() {
     const boton = document.querySelector('.btn-share-sp');
-    const originalText = boton.innerHTML;
-    boton.innerHTML = "Preparando... ⏳";
-    boton.disabled = true;
+    const txtOriginal = boton.innerHTML;
+    boton.innerHTML = "Preparando... ⏳"; boton.disabled = true;
 
     try {
         const canvas = await html2canvas(placaObjetivo, {
-            useCORS: true,
-            allowTaint: false,
-            scale: 3,
-            backgroundColor: "#000000"
+            useCORS: true, allowTaint: false, scale: 3, backgroundColor: "#000000"
         });
-
         canvas.toBlob(async function(blob) {
             const file = new File([blob], "placa.png", { type: "image/png" });
-
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({
-                    files: [file],
-                    title: "Nueva Placa",
-                    text: "Generado desde el panel de Nada Digital"
-                });
+                await navigator.share({ files: [file], title: "Placa Generada" });
             } else {
-                alert("Tu navegador o dispositivo no permite compartir directo. Usá el botón Descargar.");
+                alert("Dispositivo no compatible con compartir directo. ¡Usá Descargar!");
             }
-            boton.innerHTML = originalText;
-            boton.disabled = false;
+            boton.innerHTML = txtOriginal; boton.disabled = false;
         }, "image/png");
-
     } catch (err) {
-        console.error(err);
-        alert("Error al compartir.");
-        boton.innerHTML = originalText;
-        boton.disabled = false;
+        console.error(err); boton.innerHTML = txtOriginal; boton.disabled = false;
     }
 }

@@ -1,151 +1,55 @@
 /* ==========================================================================
-   ESTILOS GENERALES DE LA APLICACIÓN (Layout de edición)
+   ESTILOS GENERALES DE LA INTERFAZ
    ========================================================================== */
 body {
-    margin: 0;
-    padding: 0;
+    margin: 0; padding: 0;
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: #111116;
-    color: #fff;
+    background: #111116; color: #fff;
 }
+.interfaz-contenedor { display: flex; flex-direction: row; min-height: 100vh; }
 
-.interfaz-contenedor {
-    display: flex;
-    flex-direction: row;
-    min-height: 100vh;
-}
-
-/* Panel Izquierdo */
 .panel-control {
-    width: 350px;
-    background: #1a1a24;
-    padding: 25px;
-    box-sizing: border-box;
-    border-right: 1px solid #2a2a3a;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    width: 350px; background: #1a1a24; padding: 25px;
+    box-sizing: border-box; border-right: 1px solid #2a2a3a;
+    display: flex; flex-direction: column; gap: 16px;
+    overflow-y: auto; height: 100vh;
 }
+.panel-control h2 { margin-top: 0; font-size: 18px; border-bottom: 2px solid #3a3a52; padding-bottom: 10px; }
 
-.panel-control h2 {
-    margin-top: 0;
-    font-size: 20px;
-    border-bottom: 2px solid #3a3a52;
-    padding-bottom: 10px;
+.campo { display: flex; flex-direction: column; gap: 6px; }
+.campo label { font-size: 12px; font-weight: bold; color: #ccc; }
+.campo textarea, .campo input, .campo select {
+    background: #111116; border: 1px solid #3a3a52;
+    padding: 10px; color: #fff; border-radius: 6px; font-size: 14px;
 }
+.campo textarea { height: 70px; resize: none; }
+.acciones-panel { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 15px; }
 
-.campo {
-    display: flex;
-    flex-direction: column;
-    gap: 6px;
-}
-
-.campo label {
-    font-size: 13px;
-    font-weight: bold;
-    color: #ccc;
-}
-
-.campo textarea, .campo input[type="text"] {
-    background: #111116;
-    border: 1px solid #3a3a52;
-    padding: 10px;
-    color: #fff;
-    border-radius: 6px;
-    font-size: 14px;
-}
-
-.campo textarea {
-    height: 80px;
-    resize: none;
-}
-
-.campo small {
-    color: #888;
-    font-size: 11px;
-}
-
-.campo-checkbox {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    background: #222230;
-    padding: 10px;
-    border-radius: 6px;
-}
-
-.label-inline {
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.acciones-panel {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-/* Botones de acción */
 .btn-descarga-sp, .btn-share-sp {
-    width: 100%;
-    padding: 14px;
-    border: none;
-    border-radius: 8px;
-    font-weight: bold;
-    font-size: 14px;
-    cursor: pointer;
-    transition: transform 0.1s;
+    width: 100%; padding: 14px; border: none; border-radius: 8px;
+    font-weight: bold; font-size: 14px; cursor: pointer; transition: transform 0.1s;
 }
-
 .btn-descarga-sp { background: #004a99; color: #fff; }
 .btn-share-sp { background: #cc0000; color: #fff; }
 .btn-descarga-sp:active, .btn-share-sp:active { transform: scale(0.97); }
 
-/* Zona de previsualización de la Placa */
-.zona-placa {
-    flex: 1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: #09090c;
-}
+.zona-placa { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; background: #09090c; }
 
 /* ==========================================================================
-   LA PLACA COMPORTAMIENTO BASE (Aspect Ratio 4:5 Instagram)
+   ESTRUCTURA RÍGIDA DE LA PLACA (4:5)
    ========================================================================== */
 .placa-sp-wrapper {
-    width: 440px;
-    height: 550px;
-    position: relative;
-    overflow: hidden;
-    background: #000;
+    width: 440px; height: 550px;
+    position: relative; overflow: hidden; background: #000;
     box-shadow: 0 10px 30px rgba(0,0,0,0.5);
 }
+.img-noticia-sp { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1; }
 
-/* Imagen de fondo */
-.img-noticia-sp {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: 1;
-}
-
-/* LOGO BLANCO ARRIBA A LA DERECHA */
+/* LOGO POSICIONADO (El tamaño se calibra acá) */
 .marca-agua-sp {
     position: absolute !important;
-    top: 20px;
-    right: 5px;
-    width: 160px;
-    height: 55px;
-    background-image: url("https://nadadigital.com.ar/wp-content/uploads/2026/06/LOGONADADIGITAL-BLANCO.png") !important;
+    top: 20px; right: 5px;
+    width: 160px; height: 55px;
     background-repeat: no-repeat !important;
     background-position: center right !important;
     background-size: contain !important;
@@ -153,118 +57,60 @@ body {
     z-index: 4 !important;
 }
 
-/* Zócalo deportivo clásico por defecto */
-.zocalo-sp {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%);
-    padding: 20px;
-    z-index: 10;
-    text-align: left;
-    border-top: 5px solid #ff0000; /* Borde deportivo base */
-}
-
-.cat-sp {
-    display: inline-block;
-    background: #ffff00;
-    color: #000;
-    padding: 4px 8px;
-    font-weight: 900;
-    text-transform: uppercase;
-    font-size: 11px;
-    margin-bottom: 8px;
-}
-
-.titulo-sp {
-    color: #fff;
-    font-family: 'Arial Black', sans-serif;
-    font-size: 22px;
-    line-height: 1.1;
-    font-weight: 900;
-    margin: 0 0 8px 0;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-}
-
+.zocalo-sp { position: absolute; bottom: 0; left: 0; right: 0; z-index: 10; padding: 20px; }
+.cat-sp { display: inline-block; font-weight: 900; font-size: 11px; margin-bottom: 8px; }
+.titulo-sp { font-size: 22px; line-height: 1.1; margin: 0 0 8px 0; }
 .footer-sp { margin-top: 5px; }
-.web-sp { font-size: 12px; color: #fff; font-weight: bold; opacity: 0.7; }
+.web-sp { font-size: 12px; font-weight: bold; opacity: 0.7; }
 
 /* ==========================================================================
-   VARIACIÓN SÓLIDA PARA PLACAS DE LUTO (.es-luto)
+   MODULO 1: ESTILO CLÁSICO DEPORTIVO
    ========================================================================== */
+.diseno-deportivo .zocalo-sp {
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%);
+    border-top: 5px solid #ff0000;
+    text-align: left;
+}
+.diseno-deportivo .cat-sp { background: #ffff00; color: #000; padding: 4px 8px; text-transform: uppercase; }
+.diseno-deportivo .titulo-sp { color: #fff; font-family: 'Arial Black', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -1px; }
+.diseno-deportivo .web-sp { color: #fff; }
 
-/* Zócalo fúnebre centrado sin bordes vivos */
-.es-luto .zocalo-sp {
+/* ==========================================================================
+   MODULO 2: ESTILO DE LUTO FINO UNIFICADO
+   ========================================================================== */
+.diseno-luto .zocalo-sp {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.85) 65%, rgba(0, 0, 0, 0) 100%) !important;
-    border-top: none !important;
-    text-align: center !important;
-    display: flex !important;
-    flex-direction: column !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
+    border: none !important; border-top: 0px solid transparent !important;
+    text-align: center !important; display: flex !important;
+    flex-direction: column !important; align-items: center !important; justify-content: flex-end !important;
     height: auto !important;
 }
+.diseno-luto .cat-sp {
+    position: relative !important; top: auto !important; left: auto !important; transform: none !important;
+    background: #000000 !important; color: #ffffff !important; border: 1px solid #444444 !important;
+    margin: 0 auto 14px auto !important; display: inline-flex !important; align-items: center !important;
+    justify-content: center !important; text-align: center !important;
+    height: 28px !important; line-height: 28px !important; padding: 0 15px !important; box-sizing: border-box !important;
+}
+.diseno-luto .titulo-sp { text-align: center !important; width: 100% !important; margin: 0 0 10px 0 !important; color: #ffffff !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; font-weight: 700; text-transform: uppercase; }
+.diseno-luto .footer-sp { width: 100% !important; text-align: center !important; margin-top: 5px !important; }
+.diseno-luto .web-sp { color: #ffffff !important; opacity: 0.6; }
+.diseno-luto .img-noticia-sp { filter: grayscale(100%) brightness(0.7) !important; }
 
-/* Categoría/Años perfectamente centrada vertical y horizontalmente */
-.es-luto .cat-sp {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    transform: none !important;
-    background: #000000 !important;
-    color: #ffffff !important;
-    border: 1px solid #444444 !important;
-    margin: 0 auto 14px auto !important;
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    text-align: center !important;
-    height: 28px !important;
-    line-height: 28px !important;
-    padding: 0 15px !important;
-    box-sizing: border-box !important;
-    float: none !important;
+/* Capa física fúnebre para congelar el luto gris al descargar */
+.diseno-luto .img-noticia-sp::after {
+    display: block !important; content: "" !important; position: absolute !important;
+    top: 0; left: 0; width: 100%; height: 100%; background: rgba(40, 40, 40, 0.45) !important; z-index: 2;
 }
 
-.es-luto .titulo-sp {
-    text-align: center !important;
-    width: 100% !important;
-    margin: 0 0 10px 0 !important;
-}
+/* Forzar transparencias anti rebarbas blancas en luto */
+.diseno-luto, .diseno-luto * { background-color: transparent; border-color: transparent; }
+.diseno-luto .cat-sp { background-color: #000000 !important; border-color: #444444 !important; }
 
-.es-luto .footer-sp {
-    width: 100% !important;
-    text-align: center !important;
-}
-
-/* Foto en escala de grises directa */
-.es-luto .img-noticia-sp {
-    filter: grayscale(100%) brightness(0.7) !important;
-}
-
-/* Filtro físico gris para asegurar el renderizado en descargas de Canvas */
-.es-luto .img-noticia-sp::after {
-    display: block !important;
-    content: "" !important;
-    position: absolute !important;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(40, 40, 40, 0.45) !important;
-    z-index: 2;
-}
-
-/* Forzar transparencias fúnebres rígidas anti franja blanca */
-.es-luto, .es-luto * {
-    background-color: transparent;
-    border-color: transparent;
-}
-.es-luto .cat-sp { background-color: #000000 !important; border-color: #444444 !important; }
-
-/* Responsive celular para la pantalla de edición */
+/* Responsive */
 @media (max-width: 768px) {
     .interfaz-contenedor { flex-direction: column; }
-    .panel-control { width: 100%; order: 2; }
-    .zona-placa { order: 1; padding: 10px; }
+    .panel-control { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #2a2a3a; }
+    .zona-placa { padding: 10px; }
     .placa-sp-wrapper { width: 340px; height: 425px; }
 }
