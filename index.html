@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Placas - Nada Digital</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+
+    <div class="interfaz-contenedor">
+        
+        <div class="panel-control">
+            <h2>Panel de Control</h2>
+            
+            <div class="campo">
+                <label>Título de la Noticia:</label>
+                <textarea id="input-titulo" placeholder="Escribí el título acá..."></textarea>
+            </div>
+            
+            <div class="campo">
+                <label>Categoría / Años:</label>
+                <input type="text" id="input-categoria" placeholder="POLICIAL, DEPORTES o 1949 - 2026">
+                <small>Si elegís luto, poné los años ej: 1945 - 2026</small>
+            </div>
+            
+            <div class="campo-checkbox">
+                <input type="checkbox" id="check-luto">
+                <label for="check-luto" class="label-inline">¿Es placa de Luto / Necrológica?</label>
+            </div>
+            
+            <div class="campo">
+                <label>Imagen Destacada:</label>
+                <input type="file" id="input-foto" accept="image/*">
+            </div>
+            
+            <div class="acciones-panel">
+                <button type="button" class="btn-descarga-sp" onclick="descargarPlaca()">📥 Descargar Placa</button>
+                <button type="button" class="btn-share-sp" onclick="compartirPlaca()">📤 Compartir Nivel Celular</button>
+            </div>
+        </div>
+
+        <div class="zona-placa">
+            <div class="placa-sp-wrapper" id="placa-objetivo">
+                
+                <div class="img-noticia-sp" id="placa-foto" style="background-image: url('https://via.placeholder.com/800x1000/222/fff?text=Subir+Foto');"></div>
+                
+                <div class="marca-agua-sp"></div>
+                
+                <div class="zocalo-sp">
+                    <div class="cat-sp" id="placa-categoria">NOTICIAS</div>
+                    <h2 class="titulo-sp" id="placa-titulo">TÍTULO DE LA NOTICIA DE EJEMPLO PARA CONFIGURAR</h2>
+                    <div class="footer-sp">
+                        <span class="web-sp">www.nadadigital.com.ar</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
