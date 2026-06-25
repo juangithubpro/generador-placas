@@ -109,11 +109,10 @@ body {
    MODULO 3: ESTILO INSTITUCIONAL MUNICIPALIDAD SÁENZ PEÑA
    ========================================================================== */
 .diseno-municipal {
-    /* Sin bordes laterales a los costados, manteniendo superior e inferior */
-    border: solid #ffffff !important;
-    border-width: 15px 0px 15px 0px !important;
+    /* Eliminamos por completo los bordes para que sea a sangre total */
+    border: none !important;
     box-sizing: border-box !important;
-    background: #ffffff !important;
+    background: transparent !important;
 }
 .diseno-municipal .img-noticia-sp {
     top: 0; left: 0;
