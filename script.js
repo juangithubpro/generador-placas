@@ -17,10 +17,25 @@ const placaFoto = document.getElementById('placa-foto');
 // 🔄 1. Selector Dinámico de Diseño (Alterna clases sin chocar)
 selectDiseno.addEventListener('change', () => {
     const valorSeleccionado = selectDiseno.value;
+    
+    // Limpiamos las clases previas de diseño
+    placaObjetivo.className = "placa-sp-wrapper";
+
     if (valorSeleccionado === 'luto') {
-        placaObjetivo.className = "placa-sp-wrapper diseno-luto";
-    } else {
-        placaObjetivo.className = "placa-sp-wrapper diseno-deportivo";
+        placaObjetivo.classList.add('diseno-luto');
+    } 
+    else if (valorSeleccionado === 'municipal') {
+        placaObjetivo.classList.add('diseno-municipal');
+        
+        // Auto-completado del dominio municipal
+        if (inputDominio && placaDominio) {
+            inputDominio.value = "saenzpena.gob.ar";
+            placaDominio.innerText = "saenzpena.gob.ar";
+        }
+    } 
+    else {
+        // Por defecto o deportivo
+        placaObjetivo.classList.add('diseno-deportivo');
     }
 });
 
@@ -96,7 +111,7 @@ async function compartirPlaca() {
         canvas.toBlob(async function(blob) {
             const file = new File([blob], "placa.png", { type: "image/png" });
             if (navigator.canShare && navigator.canShare({ files: [file] })) {
-                await navigator.share({ files: [file], title: "Placa Generada" });
+                await navigator.share({ files: [file], title: "Placa Generated" });
             } else {
                 alert("Dispositivo no compatible con compartir directo. ¡Usá Descargar!");
             }
