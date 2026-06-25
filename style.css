@@ -109,7 +109,9 @@ body {
    MODULO 3: ESTILO INSTITUCIONAL MUNICIPALIDAD SÁENZ PEÑA
    ========================================================================== */
 .diseno-municipal {
-    border: 15px solid #ffffff !important;
+    /* Sin bordes laterales a los costados, manteniendo superior e inferior */
+    border: solid #ffffff !important;
+    border-width: 15px 0px 15px 0px !important;
     box-sizing: border-box !important;
     background: #ffffff !important;
 }
@@ -118,7 +120,7 @@ body {
     width: 100%; height: 100%;
 }
 .diseno-municipal .zocalo-sp {
-    background: linear-gradient(to top, rgba(11, 54, 28, 0.95) 0%, rgba(11, 54, 28, 0.6) 70%, rgba(0, 0, 0, 0) 100%) !important;
+    background: linear-gradient(to top, rgba(11, 54, 28, 0.98) 0%, rgba(11, 54, 28, 0.7) 75%, rgba(0, 0, 0, 0) 100%) !important;
     border: none !important;
     border-top: 0px solid transparent !important;
     text-align: left !important;
@@ -126,6 +128,7 @@ body {
     flex-direction: column !important;
     align-items: flex-start !important;
     justify-content: flex-end !important;
+    padding-bottom: 75px !important; /* Espacio para que el texto no pise el logo inferior */
 }
 .diseno-municipal .cat-sp {
     background: #00a859 !important; /* Verde Algodón Oficial */
@@ -145,18 +148,29 @@ body {
     letter-spacing: 0px !important;
     font-size: 20px !important;
 }
+
+/* Reubicación dinámica del logo abajo en el zócalo */
+.diseno-municipal .marca-agua-sp {
+    top: auto !important;
+    right: 20px !important;
+    bottom: 15px !important; /* Fijado abajo a la derecha */
+    width: 170px !important;
+    height: 45px !important;
+    z-index: 12 !important;
+}
+
+/* Alineación limpia del dominio al lado del logo */
 .diseno-municipal .footer-sp {
-    margin-top: 5px !important;
-    width: 100% !important;
+    position: absolute !important;
+    bottom: 25px !important;
+    left: 20px !important;
+    margin: 0 !important;
+    width: auto !important;
     text-align: left !important;
 }
 .diseno-municipal .web-sp {
     color: #ffffff !important;
     opacity: 0.9 !important;
-}
-.diseno-municipal .marca-agua-sp {
-    top: 35px !important; /* Baja para no pisar el marco blanco superior */
-    right: 20px !important;
 }
 
 /* Responsive */
