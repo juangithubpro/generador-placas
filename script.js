@@ -27,10 +27,10 @@ selectDiseno.addEventListener('change', () => {
     else if (valorSeleccionado === 'municipal') {
         placaObjetivo.classList.add('diseno-municipal');
         
-        // Auto-completado del dominio municipal
+        // Auto-completado del dominio municipal en mayúsculas institucionales
         if (inputDominio && placaDominio) {
-            inputDominio.value = "saenzpena.gob.ar";
-            placaDominio.innerText = "saenzpena.gob.ar";
+            inputDominio.value = "SAENZPENA.GOB.AR";
+            placaDominio.innerText = "SAENZPENA.GOB.AR";
         }
     } 
     else {
@@ -49,9 +49,9 @@ inputCategoria.addEventListener('input', () => {
     placaCategoria.innerText = inputCategoria.value.toUpperCase() || "NOTICIAS";
 });
 
-// 🌐 4. Sincronizar Dominio Web Editable
+// 🌐 4. Sincronizar Dominio Web Editable (Se remueve toLowerCase para que acepte mayúsculas de bloque)
 inputDominio.addEventListener('input', () => {
-    placaDominio.innerText = inputDominio.value.toLowerCase() || "www.nadadigital.com.ar";
+    placaDominio.innerText = inputDominio.value.toUpperCase() || "WWW.NADADIGITAL.COM.AR";
 });
 
 // 🚀 5. Lector de Logo Dinámico (Permite subir cualquier PNG al vuelo)

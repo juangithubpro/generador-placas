@@ -106,18 +106,20 @@ body {
 .diseno-luto .cat-sp { background-color: #000000 !important; border-color: #444444 !important; }
 
 /* ==========================================================================
-   MODULO 3: ESTILO INSTITUCIONAL MUNICIPALIDAD SÁENZ PEÑA
+   MODULO 3: ESTILO INSTITUCIONAL MUNICIPALIDAD SÁENZ PEÑA (REORGANIZADO)
    ========================================================================== */
 .diseno-municipal {
-    /* Eliminamos por completo los bordes para que sea a sangre total */
     border: none !important;
     box-sizing: border-box !important;
     background: transparent !important;
 }
+
 .diseno-municipal .img-noticia-sp {
     top: 0; left: 0;
     width: 100%; height: 100%;
 }
+
+/* 🎚️ El zócalo ahora maneja los bloques inferiores en una sola línea */
 .diseno-municipal .zocalo-sp {
     background: linear-gradient(to top, rgba(11, 54, 28, 0.98) 0%, rgba(11, 54, 28, 0.7) 75%, rgba(0, 0, 0, 0) 100%) !important;
     border: none !important;
@@ -125,12 +127,29 @@ body {
     text-align: left !important;
     display: flex !important;
     flex-direction: column !important;
-    align-items: flex-start !important;
     justify-content: flex-end !important;
-    padding-bottom: 75px !important; /* Espacio para que el texto no pise el logo inferior */
+    padding: 20px !important;
+    padding-bottom: 75px !important; /* Espacio libre abajo para la barra de elementos */
 }
-/* Categoría superior estilo bloque verde compacto */
+
+/* 📌 Contenedor inferior dinámico para alinear los 3 elementos abajo */
+.diseno-municipal .footer-sp {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    right: 20px !important;
+    width: calc(100% - 40px) !important;
+    margin: 0 !important;
+    display: flex !important;
+    flex-direction: row !important;
+    justify-content: space-between !important; /* Distribuye: Izquierda, Centro, Derecha */
+    align-items: center !important;
+    z-index: 15 !important;
+}
+
+/* 🏷️ Categoría fija en el extremo izquierdo */
 .diseno-municipal .cat-sp {
+    position: static !important;
     background: #00a859 !important; /* Verde Algodón Oficial */
     color: #ffffff !important;
     padding: 6px 12px !important;
@@ -139,54 +158,30 @@ body {
     font-weight: 900 !important;
     font-size: 14px !important;
     letter-spacing: 0.5px !important;
-    display: inline-block !important;
-    margin-bottom: 4px !important;
+    border-radius: 4px;
+    margin: 0 !important;
 }
-/* 🎯 El título ultra pesado y pegado como en las capturas */
-.diseno-municipal .titulo-sp {
+
+/* 🏢 Logo Municipal fijado justo en el centro abajo */
+.diseno-municipal .marca-agua-sp {
+    position: static !important; /* Rompe el absoluto viejo para centrarse */
+    margin: 0 auto !important;   /* Truco de Flexbox para empujar al centro perfecto */
+    width: 160px !important;
+    height: 45px !important;
+    opacity: 0.95 !important;
+}
+
+/* 🌐 Dirección web rodeada estilo bloque (como la categoría) en el extremo derecho */
+.diseno-municipal .web-sp {
+    background: #00a859 !important; /* Rodeado con el mismo verde institucional */
     color: #ffffff !important;
+    padding: 6px 12px !important;
+    text-transform: uppercase !important; /* En mayúsculas para emparejar con la categoría */
     font-family: 'Arial Black', 'Arial Bold', sans-serif !important;
     font-weight: 900 !important;
-    text-transform: uppercase !important;
-    
-    /* Efecto tipográfico ultra-compacto */
-    font-size: 32px !important;      /* Más grande y pesado */
-    line-height: 0.95 !important;    /* Forzamos a que las líneas se peguen entre sí */
-    letter-spacing: -1px !important; /* Juntamos las letras horizontalmente */
-    margin: 0 0 12px 0 !important;
-    
-    /* Sombra sutil para que despegue del fondo si la foto es clara */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6) !important;
-}
-
-/* Reubicación dinámica del logo abajo en el zócalo */
-.diseno-municipal .marca-agua-sp {
-    top: auto !important;
-    right: 20px !important;
-    bottom: 15px !important; /* Fijado abajo a la derecha */
-    width: 170px !important;
-    height: 45px !important;
-    z-index: 12 !important;
-}
-
-/* Alineación limpia del dominio al lado del logo */
-.diseno-municipal .footer-sp {
-    position: absolute !important;
-    bottom: 25px !important;
-    left: 20px !important;
-    margin: 0 !important;
-    width: auto !important;
-    text-align: left !important;
-}
-.diseno-municipal .web-sp {
-    color: #ffffff !important;
-    opacity: 0.9 !important;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-    .interfaz-contenedor { flex-direction: column; }
-    .panel-control { width: 100%; height: auto; border-right: none; border-bottom: 1px solid #2a2a3a; }
-    .zona-placa { padding: 10px; }
-    .placa-sp-wrapper { width: 340px; height: 425px; }
+    font-size: 13px !important;
+    letter-spacing: 0.5px !important;
+    border-radius: 4px;
+    opacity: 1 !important;
+    display: inline-block !important;
 }
