@@ -45,10 +45,8 @@ function rellenarSelect() {
 
 // Elige automáticamente un modelo (por defecto el primero)
 function elegirModeloAutomatico() {
-    // Cambia a aleatorio si prefieres:
-    // const indice = Math.floor(Math.random() * MODELOS.length);
-    // return MODELOS[indice].id;
-    return MODELOS[0].id; // Siempre inicia con el clásico
+    // Siempre inicia con el clásico (evita errores de clases no definidas)
+    return MODELOS[0].id;
 }
 
 // Aplica un modelo al wrapper y sincroniza el select
@@ -112,8 +110,18 @@ inputFoto.addEventListener('change', (e) => {
 });
 
 // ============================================================
-// 5. DESCARGA Y COMPARTIR (con tamaño Instagram 1080x1350)
+// 5. DESCARGA Y COMPARTIR (CORREGIDO - sin deformación)
 // ============================================================
+
+// Calcula la escala necesaria para que el ancho final sea 1080px
+function obtenerEscalaParaInstagram() {
+    const rect = placaObjetivo.getBoundingClientRect();
+    const anchoActual = rect.width;
+    // Si el ancho es 0 (elemento oculto), usar valor por defecto
+    if (anchoActual === 0) return 3; // fallback
+    return 1080 / anchoActual;
+}
+
 async function descargarPlaca() {
     const boton = document.querySelector('.btn-descarga-sp');
     const txtOriginal = boton.innerHTML;
@@ -121,24 +129,13 @@ async function descargarPlaca() {
     boton.disabled = true;
 
     try {
-        // Forzamos el tamaño de la placa a 1080x1350 (4:5) para Instagram
+        const escala = obtenerEscalaParaInstagram();
         const canvas = await html2canvas(placaObjetivo, {
             useCORS: true,
             allowTaint: false,
-            scale: 3,                // Alta calidad
+            scale: escala,           // Escala dinámica para lograr 1080px de ancho
             backgroundColor: "#000000",
-            width: 1080,             // Ancho fijo
-            height: 1350,            // Alto fijo
-            onclone: function(doc) {
-                // Ajustamos el tamaño del elemento clonado
-                const cloned = doc.getElementById('placa-objetivo');
-                if (cloned) {
-                    cloned.style.width = '1080px';
-                    cloned.style.height = '1350px';
-                    cloned.style.maxWidth = 'none';
-                    cloned.style.aspectRatio = '4 / 5';
-                }
-            }
+            // No forzamos width/height, así se mantiene la relación de aspecto
         });
         const link = document.createElement("a");
         link.download = `Placa-${selectDiseno.value.replace('diseno-', '')}.png`;
@@ -159,22 +156,12 @@ async function compartirPlaca() {
     boton.disabled = true;
 
     try {
+        const escala = obtenerEscalaParaInstagram();
         const canvas = await html2canvas(placaObjetivo, {
             useCORS: true,
             allowTaint: false,
-            scale: 3,
+            scale: escala,
             backgroundColor: "#000000",
-            width: 1080,
-            height: 1350,
-            onclone: function(doc) {
-                const cloned = doc.getElementById('placa-objetivo');
-                if (cloned) {
-                    cloned.style.width = '1080px';
-                    cloned.style.height = '1350px';
-                    cloned.style.maxWidth = 'none';
-                    cloned.style.aspectRatio = '4 / 5';
-                }
-            }
         });
         canvas.toBlob(async function(blob) {
             const file = new File([blob], "placa.png", { type: "image/png" });
