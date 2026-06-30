@@ -1,187 +1,468 @@
-/* ==========================================================================
-   ESTILOS GENERALES DE LA INTERFAZ
-   ========================================================================== */
-body {
-    margin: 0; padding: 0;
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-    background: #111116; color: #fff;
+/* ============================================
+   RESET Y ESTRUCTURA GENERAL
+   ============================================ */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
-.interfaz-contenedor { display: flex; flex-direction: row; min-height: 100vh; }
+
+body {
+    font-family: 'Segoe UI', Roboto, Arial, sans-serif;
+    background: #f0f2f5;
+}
+
+/* ============================================
+   PANEL DE CONTROL (Interfaz)
+   ============================================ */
+.interfaz-contenedor {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    max-width: 1300px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f0f2f5;
+    border-radius: 16px;
+}
 
 .panel-control {
-    width: 350px; background: #1a1a24; padding: 25px;
-    box-sizing: border-box; border-right: 1px solid #2a2a3a;
-    display: flex; flex-direction: column; gap: 16px;
-    overflow-y: auto; height: 100vh;
+    flex: 1 1 380px;
+    background: #ffffff;
+    padding: 30px 25px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    border: 1px solid #e9ecef;
 }
-.panel-control h2 { margin-top: 0; font-size: 18px; border-bottom: 2px solid #3a3a52; padding-bottom: 10px; }
 
-.campo { display: flex; flex-direction: column; gap: 6px; }
-.campo label { font-size: 12px; font-weight: bold; color: #ccc; }
-.campo textarea, .campo input, .campo select {
-    background: #111116; border: 1px solid #3a3a52;
-    padding: 10px; color: #fff; border-radius: 6px; font-size: 14px;
+.panel-control h2 {
+    margin-top: 0;
+    color: #1a1a2e;
+    font-size: 26px;
+    font-weight: 700;
+    border-bottom: 3px solid #e31e2b;
+    padding-bottom: 12px;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
 }
-.campo textarea { height: 70px; resize: none; }
-.acciones-panel { margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 15px; }
 
-.btn-descarga-sp, .btn-share-sp {
-    width: 100%; padding: 14px; border: none; border-radius: 8px;
-    font-weight: bold; font-size: 14px; cursor: pointer; transition: transform 0.1s;
+.campo {
+    margin-bottom: 20px;
 }
-.btn-descarga-sp { background: #004a99; color: #fff; }
-.btn-share-sp { background: #cc0000; color: #fff; }
-.btn-descarga-sp:active, .btn-share-sp:active { transform: scale(0.97); }
 
-.zona-placa { flex: 1; display: flex; justify-content: center; align-items: center; padding: 20px; background: #09090c; }
-
-/* ==========================================================================
-   ESTRUCTURA RÍGIDA DE LA PLACA (4:5)
-   ========================================================================== */
-.placa-sp-wrapper {
-    width: 440px; height: 550px;
-    position: relative; overflow: hidden; background: #000;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+.campo label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 6px;
+    color: #2d3748;
+    font-size: 14px;
 }
-.img-noticia-sp { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; z-index: 1; }
 
-/* LOGO POSICIONADO (El tamaño se calibra acá) */
-.marca-agua-sp {
+.campo input,
+.campo textarea,
+.campo select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #f9fafb;
+    box-sizing: border-box;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.campo input:focus,
+.campo textarea:focus,
+.campo select:focus {
+    outline: none;
+    border-color: #e31e2b;
+    box-shadow: 0 0 0 3px rgba(227, 30, 43, 0.15);
+}
+
+.campo textarea {
+    min-height: 70px;
+    resize: vertical;
+}
+
+.campo input[type="file"] {
+    padding: 10px 12px;
+    background: #ffffff;
+    border: 1px dashed #a0aec0;
+    cursor: pointer;
+}
+
+.campo input[type="file"]:hover {
+    background: #f7fafc;
+}
+
+.acciones-panel {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    padding-top: 20px;
+    border-top: 2px solid #edf2f7;
+}
+
+.acciones-panel .btn-descarga-sp,
+.acciones-panel .btn-share-sp {
+    flex: 1 1 auto;
+    padding: 14px 24px;
+    border: none;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    color: #ffffff;
+    transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    letter-spacing: 0.5px;
+}
+
+.acciones-panel .btn-descarga-sp {
+    background: #004a99;
+}
+.acciones-panel .btn-descarga-sp:hover {
+    background: #00337a;
+    box-shadow: 0 6px 14px rgba(0, 74, 153, 0.3);
+}
+
+.acciones-panel .btn-share-sp {
+    background: #cc0000;
+}
+.acciones-panel .btn-share-sp:hover {
+    background: #a80000;
+    box-shadow: 0 6px 14px rgba(204, 0, 0, 0.3);
+}
+
+.acciones-panel .btn-descarga-sp:active,
+.acciones-panel .btn-share-sp:active {
+    transform: scale(0.95);
+}
+
+/* ============================================
+   ZONA DE LA PLACA (Vista previa)
+   ============================================ */
+.zona-placa {
+    flex: 1 1 400px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    background: #e9ecef;
+    border-radius: 14px;
+    padding: 25px 15px;
+    box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.04);
+    border: 1px solid #dee2e6;
+}
+
+/* ============================================
+   PLACA BASE (tamaño para vista previa)
+   ============================================ */
+.zona-placa .placa-sp-wrapper {
+    width: 100%;
+    max-width: 400px;    /* Tamaño de vista previa */
+    aspect-ratio: 4 / 5; /* Relación Instagram */
+    position: relative;
+    background: #000;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+}
+
+/* Elementos internos de la placa (se aplican a todos los modelos) */
+.placa-sp-wrapper .img-noticia-sp {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 1;
+}
+
+.placa-sp-wrapper .marca-agua-sp {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 80px;
+    height: 80px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 5;
+    opacity: 0.9;
+}
+
+.placa-sp-wrapper .zocalo-sp {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 10;
+    padding: 20px;
+}
+
+.placa-sp-wrapper .cat-sp {
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.placa-sp-wrapper .titulo-sp {
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1.0;
+    margin: 0;
+}
+
+.placa-sp-wrapper .web-sp {
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
+/* ============================================
+   MODELOS DE DISEÑO (7 estilos)
+   ============================================ */
+
+/* --- 1. Clásico (blanco/rojo) --- */
+.diseno-clasico .zocalo-sp {
+    background: #ffffff !important;
+    border-top: 10px solid #e31e2b !important;
+    padding: 20px 15px 40px 15px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.diseno-clasico .cat-sp {
+    color: #e31e2b !important;
+    font-family: 'Arial Black', sans-serif !important;
+    font-size: 16px !important;
+    margin-bottom: 8px !important;
+}
+.diseno-clasico .titulo-sp {
+    color: #000000 !important;
+    font-family: 'Arial Black', sans-serif !important;
+    font-size: 20px !important;
+    text-align: center !important;
+    letter-spacing: -1px !important;
+}
+.diseno-clasico .web-sp {
+    color: #e31e2b !important;
+    font-size: 11px !important;
+    margin-top: 15px !important;
+}
+
+/* --- 2. Rojo flotante --- */
+.diseno-rojo-flotante .zocalo-sp {
+    bottom: 30px !important;
+    left: 5% !important;
+    right: 5% !important;
+    width: 90% !important;
+    background: #e60000 !important;
+    padding: 25px 15px 15px 15px !important;
+    text-align: center !important;
+}
+.diseno-rojo-flotante .cat-sp {
     position: absolute !important;
-    top: 20px; right: 5px;
-    width: 160px; height: 55px;
-    background-repeat: no-repeat !important;
-    background-position: center right !important;
-    background-size: contain !important;
-    opacity: 0.85 !important;
-    z-index: 4 !important;
-}
-
-.zocalo-sp { position: absolute; bottom: 0; left: 0; right: 0; z-index: 10; padding: 20px; }
-.cat-sp { display: inline-block; font-weight: 900; font-size: 11px; margin-bottom: 8px; }
-.titulo-sp { font-size: 22px; line-height: 1.1; margin: 0 0 8px 0; }
-.footer-sp { margin-top: 5px; }
-.web-sp { font-size: 12px; font-weight: bold; opacity: 0.7; }
-
-/* ==========================================================================
-   MODULO 1: ESTILO CLÁSICO DEPORTIVO
-   ========================================================================== */
-.diseno-deportivo .zocalo-sp {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.6) 70%, rgba(0, 0, 0, 0) 100%);
-    border-top: 5px solid #ff0000;
-    text-align: left;
-}
-.diseno-deportivo .cat-sp { background: #ffff00; color: #000; padding: 4px 8px; text-transform: uppercase; }
-.diseno-deportivo .titulo-sp { color: #fff; font-family: 'Arial Black', sans-serif; font-weight: 900; text-transform: uppercase; letter-spacing: -1px; }
-.diseno-deportivo .web-sp { color: #fff; }
-
-/* ==========================================================================
-   MODULO 2: ESTILO DE LUTO FINO UNIFICADO
-   ========================================================================== */
-.diseno-luto .zocalo-sp {
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.98) 0%, rgba(0, 0, 0, 0.85) 65%, rgba(0, 0, 0, 0) 100%) !important;
-    border: none !important; border-top: 0px solid transparent !important;
-    text-align: center !important; display: flex !important;
-    flex-direction: column !important; align-items: center !important; justify-content: flex-end !important;
-    height: auto !important;
-}
-.diseno-luto .cat-sp {
-    position: relative !important; top: auto !important; left: auto !important; transform: none !important;
-    background: #000000 !important; color: #ffffff !important; border: 1px solid #444444 !important;
-    margin: 0 auto 14px auto !important; display: inline-flex !important; align-items: center !important;
-    justify-content: center !important; text-align: center !important;
-    height: 28px !important; line-height: 28px !important; padding: 0 15px !important; box-sizing: border-box !important;
-}
-.diseno-luto .titulo-sp { text-align: center !important; width: 100% !important; margin: 0 0 10px 0 !important; color: #ffffff !important; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important; font-weight: 700; text-transform: uppercase; }
-.diseno-luto .footer-sp { width: 100% !important; text-align: center !important; margin-top: 5px !important; }
-.diseno-luto .web-sp { color: #ffffff !important; opacity: 0.6; }
-.diseno-luto .img-noticia-sp { filter: grayscale(100%) brightness(0.7) !important; }
-
-.diseno-luto .img-noticia-sp::after {
-    display: block !important; content: "" !important; position: absolute !important;
-    top: 0; left: 0; width: 100%; height: 100%; background: rgba(40, 40, 40, 0.45) !important; z-index: 2;
-}
-
-.diseno-luto, .diseno-luto * { background-color: transparent; border-color: transparent; }
-.diseno-luto .cat-sp { background-color: #000000 !important; border-color: #444444 !important; }
-
-/* ==========================================================================
-   MODULO 3: ESTILO INSTITUCIONAL MUNICIPALIDAD SÁENZ PEÑA (REORGANIZADO)
-   ========================================================================== */
-.diseno-municipal {
-    border: none !important;
-    box-sizing: border-box !important;
-    background: transparent !important;
-}
-
-.diseno-municipal .img-noticia-sp {
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-}
-
-/* 🎚️ El zócalo ahora maneja los bloques inferiores en una sola línea */
-.diseno-municipal .zocalo-sp {
-    background: linear-gradient(to top, rgba(11, 54, 28, 0.98) 0%, rgba(11, 54, 28, 0.7) 75%, rgba(0, 0, 0, 0) 100%) !important;
-    border: none !important;
-    border-top: 0px solid transparent !important;
-    text-align: left !important;
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: flex-end !important;
-    padding: 20px !important;
-    padding-bottom: 75px !important; /* Espacio libre abajo para la barra de elementos */
-}
-
-/* 📌 Contenedor inferior dinámico para alinear los 3 elementos abajo */
-.diseno-municipal .footer-sp {
-    position: absolute !important;
-    bottom: 20px !important;
-    left: 20px !important;
-    right: 20px !important;
-    width: calc(100% - 40px) !important;
-    margin: 0 !important;
-    display: flex !important;
-    flex-direction: row !important;
-    justify-content: space-between !important; /* Distribuye: Izquierda, Centro, Derecha */
-    align-items: center !important;
-    z-index: 15 !important;
-}
-
-/* 🏷️ Categoría fija en el extremo izquierdo */
-.diseno-municipal .cat-sp {
-    position: static !important;
-    background: #00a859 !important; /* Verde Algodón Oficial */
+    top: -28px !important;
+    left: 0 !important;
+    background: #000000 !important;
     color: #ffffff !important;
-    padding: 6px 12px !important;
-    text-transform: uppercase !important;
-    font-family: 'Arial Black', 'Arial Bold', sans-serif !important;
-    font-weight: 900 !important;
-    font-size: 14px !important;
-    letter-spacing: 0.5px !important;
-    border-radius: 4px;
-    margin: 0 !important;
+    padding: 5px 12px !important;
+    font-size: 12px !important;
+    font-family: sans-serif !important;
 }
-
-/* 🏢 Logo Municipal fijado justo en el centro abajo */
-.diseno-municipal .marca-agua-sp {
-    position: static !important; /* Rompe el absoluto viejo para centrarse */
-    margin: 0 auto !important;   /* Truco de Flexbox para empujar al centro perfecto */
-    width: 160px !important;
-    height: 45px !important;
-    opacity: 0.95 !important;
-}
-
-/* 🌐 Dirección web rodeada estilo bloque (como la categoría) en el extremo derecho */
-.diseno-municipal .web-sp {
-    background: #00a859 !important; /* Rodeado con el mismo verde institucional */
+.diseno-rojo-flotante .titulo-sp {
     color: #ffffff !important;
-    padding: 6px 12px !important;
-    text-transform: uppercase !important; /* En mayúsculas para emparejar con la categoría */
-    font-family: 'Arial Black', 'Arial Bold', sans-serif !important;
-    font-weight: 900 !important;
+    font-family: 'Oswald', 'Impact', sans-serif !important;
+    font-size: 26px !important;
+    letter-spacing: -0.5px !important;
+}
+.diseno-rojo-flotante .web-sp {
     font-size: 13px !important;
-    letter-spacing: 0.5px !important;
-    border-radius: 4px;
-    opacity: 1 !important;
+    color: #ffffff !important;
+    opacity: 0.9;
+}
+
+/* --- 3. C5N --- */
+.diseno-c5n .zocalo-sp {
+    background: #000000 !important;
+    padding: 15px 15px 25px 15px !important;
+    text-align: left !important;
+    border-top: 5px solid #ff0000 !important;
+}
+.diseno-c5n .titulo-sp {
+    color: #ffffff !important;
+    font-family: 'Arial Black', sans-serif !important;
+    font-size: 22px !important;
+    letter-spacing: -1px !important;
+}
+.diseno-c5n .cat-sp {
     display: inline-block !important;
+    background: #ffff00 !important;
+    color: #000000 !important;
+    padding: 2px 6px !important;
+    font-size: 10px !important;
+    font-family: sans-serif !important;
+    margin-bottom: 6px !important;
+}
+.diseno-c5n .web-sp {
+    font-size: 11px !important;
+    color: #ffffff !important;
+    opacity: 0.6;
+}
+
+/* --- 4. Gradiente --- */
+.diseno-gradiente .placa-sp-wrapper::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 55%;
+    background: linear-gradient(to top, rgba(0,0,0,1) 0%, rgba(0,0,0,0.7) 30%, rgba(0,0,0,0) 100%);
+    z-index: 5;
+}
+.diseno-gradiente .zocalo-sp {
+    background: transparent !important;
+    padding: 20px 25px 50px 25px !important;
+    text-align: center !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.diseno-gradiente .titulo-sp {
+    color: #ffffff !important;
+    font-family: 'Archivo Black', 'Arial Black', sans-serif !important;
+    font-size: 30px !important;
+    letter-spacing: -1.5px !important;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+}
+.diseno-gradiente .cat-sp {
+    display: inline-block !important;
+    background: #eb5e28 !important;
+    color: #ffffff !important;
+    padding: 3px 10px !important;
+    font-size: 14px !important;
+    font-family: sans-serif !important;
+    margin-bottom: 8px !important;
+}
+.diseno-gradiente .web-sp {
+    font-size: 16px !important;
+    color: rgba(255,255,255,0.8) !important;
+    font-family: 'Bebas Neue', sans-serif !important;
+}
+
+/* --- 5. Gente de Pueblo --- */
+.diseno-gente-pueblo .zocalo-sp {
+    background: #ffffff !important;
+    padding: 20px 20px 25px 20px !important;
+    border-top: 8px solid #eb5e28 !important;
+}
+.diseno-gente-pueblo .titulo-sp {
+    color: #111111 !important;
+    font-family: "Archivo Black", "Arial Black", sans-serif !important;
+    font-size: 24px !important;
+    letter-spacing: -1px !important;
+}
+.diseno-gente-pueblo .cat-sp {
+    position: absolute !important;
+    top: -34px !important;
+    left: 0 !important;
+    background: #1f2024 !important;
+    color: #ffffff !important;
+    padding: 6px 15px !important;
+    font-size: 13px !important;
+    border-right: 4px solid #eb5e28 !important;
+}
+.diseno-gente-pueblo .web-sp {
+    display: block !important;
+    margin-top: 10px !important;
+    font-size: 13px !important;
+    color: #eb5e28 !important;
+    text-align: right !important;
+}
+
+/* --- 6. Institucional (azul con clip-path) --- */
+.diseno-institucional .zocalo-sp {
+    background: linear-gradient(170deg, #4e6fa9 80%, #3f5f95 80%) !important;
+    box-shadow: inset 0 10px 25px rgba(0,0,0,0.3), 0 -12px 30px rgba(0,0,0,0.5);
+    padding: 28px 24px 38px 24px !important;
+}
+.diseno-institucional .titulo-sp {
+    color: #ffffff !important;
+    font-family: 'Archivo Black', 'Arial Black', sans-serif !important;
+    font-size: 28px !important;
+    letter-spacing: -1.5px !important;
+    text-align: left !important;
+}
+.diseno-institucional .cat-sp {
+    position: absolute !important;
+    bottom: 100%;
+    transform: translateY(50%);
+    left: 0;
+    background: linear-gradient(135deg, #151515 0%, #222222 100%) !important;
+    color: #ffffff !important;
+    padding: 9px 22px 9px 16px !important;
+    min-width: 145px;
+    font-family: 'Archivo Black', sans-serif !important;
+    font-size: 18px !important;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    clip-path: polygon(0 0, 92% 0, 100% 50%, 92% 100%, 0 100%);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.45);
+    border-left: 4px solid #151515;
+    border-bottom: 2px solid #151515;
+}
+.diseno-institucional .cat-sp::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -35%;
+    width: 25%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.10), transparent);
+    transform: skewX(-25deg);
+}
+.diseno-institucional .web-sp {
+    font-size: 11px !important;
+    color: #ffffff !important;
+    text-transform: lowercase !important;
+}
+
+/* --- 7. Naranja borde --- */
+.diseno-naranja-borde .zocalo-sp {
+    background: linear-gradient(to right, #eb5e28 10px, transparent 10px), linear-gradient(178deg, #1b263b 85%, #eb5e28 85.5%) !important;
+    padding: 20px 20px 40px 25px !important;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.5);
+}
+.diseno-naranja-borde .titulo-sp {
+    color: #ffffff !important;
+    font-family: 'Archivo Black', 'Arial Black', sans-serif !important;
+    font-size: 28px !important;
+    letter-spacing: -1.5px !important;
+    text-align: left !important;
+}
+.diseno-naranja-borde .cat-sp {
+    position: absolute !important;
+    top: -26px;
+    left: 10px;
+    background: #eb5e28 !important;
+    color: #ffffff !important;
+    padding: 3px 12px !important;
+    font-size: 13px !important;
+    font-weight: 900 !important;
+    text-transform: uppercase;
+}
+.diseno-naranja-borde .footer-sp {
+    margin-top: 10px;
+    text-align: right;
+}
+.diseno-naranja-borde .web-sp {
+    font-size: 11px !important;
+    color: #ffffff !important;
+    text-transform: lowercase !important;
 }
